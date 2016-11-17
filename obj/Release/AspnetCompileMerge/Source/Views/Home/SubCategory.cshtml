@@ -1,0 +1,27 @@
+﻿@model RapidMountain.Core.ViewModels.HomeViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <ul class="shop-item-list row list-inline nomargin">
+        @{
+            Html.RenderAction("RenderProducts", "Helper", new {Model.Products});
+            
+        }
+    </ul>
+
+@* TODO CLEANUP*@
+@*@section Scripts
+    {
+        <script>
+            $(document)
+                .ready(function() {
+                    $(".js-cart-add")
+                        .click(function(e) {
+                            var button = $(e.target);
+                            $.post("/api/cart?productId=" + button.attr("productId") + "&price=" + button.attr("price"));
+                        });
+                });
+        </script>
+    }*@

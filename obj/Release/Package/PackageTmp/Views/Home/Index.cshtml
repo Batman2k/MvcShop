@@ -1,0 +1,32 @@
+﻿@model RapidMountain.Core.ViewModels.HomeViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.SearchTerm))
+{
+   
+
+        <ul class="shop-item-list row list-inline nomargin">
+
+            @{
+                Html.RenderAction("RenderProducts", "Helper", new {Model.Products});
+            }
+        </ul>
+   
+
+    }
+else
+{
+    
+
+        <div class="row">
+
+            <div>Empty for now</div>
+        </div>
+        
+
+
+}

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<RapidMountain.Core.Models.Product>
+
+    @foreach (var product in Model)
+    {
+        <li class="col-lg-12">
+
+            <div class="shop-item clearfix">
+
+                <div class="thumbnail">
+                    <a class="shop-item-image" href="@Url.Action("Details","Product",new {id = product.Id})">
+                        <img class="img-responsive" src="data:image;base64,@Convert.ToBase64String(product.Pictures.First().Img)" alt="shop first image" />
+                    </a>
+                    @*<!-- countdown -->
+                            <div class="shop-item-counter">
+                                <div class="countdown" data-from="January 12, 2018 12:34:55" data-labels="years,months,weeks,days,hour,min,sec"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
+                            </div>
+                            <!-- /countdown -->*@
+                </div>
+
+                <div class="shop-item-summary">
+                    <h2>@product.Name</h2>
+
+                    @*<!-- rating -->
+                            <div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
+                            <!-- /rating -->*@
+
+                    <p>
+                        @product.Description
+
+                    </p>
+                    <div class="shop-item-price">
+                        @product.Price
+                    </div>
+                    <!-- buttons -->
+                            <div class="shop-item-buttons">
+                                <a class="btn btn-default" href="@Url.Action("AddToCart","Cart", new {productId = product.Id})"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+                                <!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+                                @*<a class="btn btn-default add-wishlist" href="#" data-item-id="11" data-toggle="tooltip" title="Add To Wishlist">
+                                    <i class="fa fa-heart nopadding"></i>
+                                </a>*@
+                                @*<a class="btn btn-default add-compare" href="#" data-item-id="11" data-toggle="tooltip" title="Add To Compare">
+                                    <i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i>
+                                </a>*@
+                            </div>
+                            <!-- /buttons -->
+                </div>
+
+            </div>
+
+        </li>
+    }

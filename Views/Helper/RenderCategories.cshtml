@@ -1,0 +1,28 @@
+﻿@model List<RapidMountain.Core.Models.Category>
+
+<div class="side-nav margin-bottom-60">
+    <div class="side-nav-head">
+        <button class="fa fa-bars"></button>
+        <h4>CATEGORIES</h4>
+    </div>
+    <ul class="list-group list-group-bordered list-group-noicon">
+        @foreach (var category in Model)
+        {
+            <li class="list-group-item">
+                <a class="dropdown-toggle" href="#">@category.Name</a>
+                <ul>
+                    @foreach (var subCategory in category.SubCategories)
+                    {
+                        <li>
+                            <a href="@Url.Action("SubCategory", "Home", new {category = category.Name, subCategory = subCategory.Name})">
+                                <span class="size-11 text-muted pull-right">@subCategory.Amount</span>@subCategory.Name
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+
+
+    </ul>
+</div>

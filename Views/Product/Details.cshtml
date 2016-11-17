@@ -1,0 +1,249 @@
+﻿@model RapidMountain.Core.ViewModels.ProductViewModel
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+
+    <div class="col-lg-6 col-sm-6">
+
+        <div class="thumbnail relative margin-bottom-3">
+
+
+            <figure id="zoom-primary" class="zoom" data-mode="mouseover">
+
+
+                <a class="lightbox bottom-right" href="@Url.Action("RenderPictureUri", "Helper", new {id = Model.Pictures.First().Id})" data-plugin-options='{"type":"image"}'>
+                    <i class="glyphicon glyphicon-search"></i>
+                </a>
+
+                <img class="img-responsive" src="@Url.Action("RenderPictureUri", "Helper", new {id = Model.Pictures.First().Id})" width="1200" height="1500" alt="This is the product title"/>
+            </figure>
+
+        </div>
+
+        <div data-for="zoom-primary" class="zoom-more owl-carousel owl-padding-3 featured" data-plugin-options='{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false}'>
+
+            @foreach (var picture in Model.Pictures)
+            {
+                <a class="thumbnail" href="@Url.Action("RenderPictureUri", "Helper", new {id = picture.Id})">
+                    <img src="@Url.Action("RenderPictureUri", "Helper", new {id = picture.Id})" height="100" alt=""/>
+                </a>
+            }
+        </div>
+
+
+    </div>
+    <div class="col-lg-6 col-sm-6">
+
+
+        <div class="shop-item-price">
+            <span class="line-through nopadding-left"></span>
+            @Model.Price
+
+        </div>
+
+        <hr/>
+
+        <div class="clearfix margin-bottom-30">
+            <span class="pull-right text-success"><i class="fa fa-check"></i> @Model.AmountInStock In Stock</span>
+            <!--
+            <span class="pull-right text-danger"><i class="glyphicon glyphicon-remove"></i> Out of Stock</span>
+            -->
+
+            <strong>SN:</strong> @Model.SerialNumber
+        </div>
+
+
+        <!-- short description -->
+        <p>@Model.Description</p>
+        <!-- /short description -->
+        @*<!-- countdown -->
+                <div class="text-center">
+                    <h5>Limited Offer</h5>
+                    <div class="countdown" data-from="January 31, 2018 15:03:26" data-labels="years,months,weeks,days,hour,min,sec"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
+                </div>
+                <!-- /countdown -->*@
+
+
+        <hr/>
+
+        <div class="clearfix form-inline nomargin" @*method="get" action="#*@">
+
+            @using (Html.BeginForm("UpdateCartAmount", "Cart"))
+            {
+
+                <div class="btn-group pull-left product-opt-qty noradius">
+                    <input type="number" value="1" name="amount" maxlength="3" max="999" min="0" />
+                </div>
+                
+                @Html.Hidden("productId", Model.Id)
+                <button class="btn btn-primary pull-left product-add-cart noradius">ADD TO CART</button>
+            }
+
+        </div>
+
+
+        <hr/>
+
+        <small class="text-muted">
+            @Model.Description
+        </small>
+
+        <hr/>
+
+        <div class="rating rating-@Model.AverageScore size-13 margin-top-10 width-100"><!-- rating-0 ... rating-5 --></div>
+        @Model.Reviews.Count Reviews
+    </div>
+</div>
+
+
+<ul id="myTab" class="nav nav-tabs nav-top-border margin-top-80" role="tablist">
+    <li role="presentation" class="active">
+        <a href="#description" role="tab" data-toggle="tab">Description</a>
+    </li>
+    <li role="presentation">
+        <a href="#specs" role="tab" data-toggle="tab">Specifications</a>
+    </li>
+    <li role="presentation">
+        <a href="#reviews" role="tab" data-toggle="tab">Reviews (@Model.Reviews.Count)</a>
+    </li>
+</ul>
+
+<div class="tab-content padding-top-20">
+    <!-- DESCRIPTION -->
+    <div role="tabpanel" class="tab-pane fade in active" id="description">
+        <p>@Model.Description</p>
+    </div>
+
+    <!-- SPECIFICATIONS -->
+    <div role="tabpanel" class="tab-pane fade" id="specs">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Column name</th>
+                    <th>Column value</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach (var spec in Model.Specifications)
+                {
+                    <tr>
+                        <td>@spec.Name</td>
+                        <td>@spec.Value</td>
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- REVIEWS -->
+    <div role="tabpanel" class="tab-pane fade" id="reviews">
+        <!-- REVIEW ITEM -->
+        @foreach (var review in Model.Reviews)
+        {
+            <div class="block margin-bottom-60">
+
+                @*<span class="user-avatar">
+                            <!-- user-avatar -->
+                            <img class="pull-left media-object" src="#" width="64" height="64" alt="">
+                        </span>*@
+
+                <div class="media-body">
+                    <h4 class="media-heading size-14">
+                        @review.MadeBy &ndash;
+                        <span class="text-muted">@review.Written.ToString("g")</span> &ndash;
+                        <span class="size-14 text-muted">
+                                <!-- stars -->
+                                @for (var i = 0; i < 5; i++)
+                                {
+                                    if (i < review.Stars)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-star-o"></i>
+                                    }
+                                }                            
+                            </span>
+                    </h4>
+
+                    <p>
+                        @review.Text
+                    </p>
+
+                </div>
+
+            </div>
+        }
+
+        <!-- /REVIEW ITEM -->
+
+        <!-- REVIEW FORM -->
+        <h4 class="page-header margin-bottom-40">ADD A REVIEW</h4>
+        <form method="post" action="#" id="form">
+
+            <div class="row margin-bottom-10">
+                @Html.HiddenFor(m => m.Id, new int())
+                <div class="col-md-6 margin-bottom-10">
+                    <!-- Name -->
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Name *" maxlength="100" required="">
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Email -->
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Email *" maxlength="100" required="">
+                </div>
+
+            </div>
+
+            <!-- Comment -->
+            <div class="margin-bottom-30">
+                <textarea name="text" id="text" class="form-control" rows="6" placeholder="Comment" maxlength="1000"></textarea>
+            </div>
+
+            <!-- Stars -->
+            <div class="product-star-vote clearfix">
+
+                <label class="radio pull-left">
+                    <input type="radio" name="starvote" value="1"/>
+                    <i></i> 1 Star
+                </label>
+
+                <label class="radio pull-left">
+                    <input type="radio" name="starvote" value="2"/>
+                    <i></i> 2 Stars
+                </label>
+
+                <label class="radio pull-left">
+                    <input type="radio" name="starvote" value="3"/>
+                    <i></i> 3 Stars
+                </label>
+
+                <label class="radio pull-left">
+                    <input type="radio" name="starvote" value="4"/>
+                    <i></i> 4 Stars
+                </label>
+
+                <label class="radio pull-left">
+                    <input type="radio" name="starvote" value="5"/>
+                    <i></i> 5 Stars
+                </label>
+
+            </div>
+
+            <!-- Send Button -->
+            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Send Review</button>
+
+        </form>
+        <!-- /REVIEW FORM -->
+
+    </div>
+</div>

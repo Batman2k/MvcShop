@@ -1,0 +1,104 @@
+﻿@model RapidMountain.Core.ViewModels.CartViewModel
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="row">
+   
+    <div class="col-lg-12 col-sm-8">
+       
+        <div class="cartContent clearfix">
+
+            <div id="cartContent">
+             
+              
+                <div class="item head clearfix">
+                    <span class="cart_img"></span>
+                    <span class="product_name size-13 bold">PRODUCT NAME</span>
+                    <span class="remove_item size-13 bold"></span>
+                    <span class="total_price size-13 bold">TOTAL</span>
+                    <span class="qty size-13 bold">QUANTITY</span>
+                </div>
+             
+
+                @foreach (var cartView in Model.CartViews)
+                {
+                    <div class="item">
+                        <div class="cart_img pull-left width-100 padding-10 text-left">
+                            <img src="@Url.Action("RenderPictureUri", "Helper", new {id = cartView.PictureId})" alt="" width="80"/>
+                        </div>
+                        <a href="@Url.Action("Details", "Product", new {id= cartView.ProductId})" class="product_name">
+                            <span>@cartView.Name</span>
+                          
+                        </a>
+                        <a href="@Url.Action("UpdateCartAmount", new {productId = cartView.ProductId, amount = 0})" class="remove_item">
+                            <i class="fa fa-times"></i>
+                        </a>
+
+                        <div class="total_price">
+                            <span>@(cartView.Price*cartView.Amount)</span>
+                        </div>
+
+                        @using (Html.BeginForm("UpdateCartAmount", "Cart"))
+                        {
+                            <div class="qty">
+                                <input type="number" value="@cartView.Amount" name="amount" maxlength="3" max="999" min="0"/>
+                                &times; @cartView.Price
+                            </div>
+                            @Html.Hidden("productId", cartView.ProductId)
+                        }
+
+
+                        <div class="clearfix"></div>
+                    </div>
+             
+                }
+
+                <div class="clearfix"></div>
+            </div>
+ 
+
+        </div>
+
+    </div>
+ 
+
+</div>
+
+<a href="@Url.Action("ClearCart")" class="btn btn-danger margin-top-20 margin-left-10 margin-bottom-10 pull-left"><i class="glyphicon glyphicon-remove"></i> CLEAR CART</a>
+
+<div class="col-lg-3 col-sm-4 pull-right">
+    
+    
+
+    <div class="toggle-transparent toggle-bordered-full clearfix">
+        <div class="toggle active">
+            <div class="toggle-content">
+
+                <span class="clearfix">
+                    <span class="pull-right">@Model.CartViews.Select(c => c.Amount*c.Price).Sum()</span>
+                    <strong class="pull-left">Subtotal:</strong>
+                </span>
+
+                <span class="clearfix">
+                    <span class="pull-right">5,00</span>
+                    <span class="pull-left">Shipping:</span>
+                </span>
+
+                <hr/>
+                <span class="clearfix">
+                    <span class="pull-right size-20">@(Model.CartViews.Select(c => c.Amount*c.Price).Sum() + 5)</span>
+                    <strong class="pull-left">TOTAL:</strong>
+                </span>
+                <hr/>
+                <a href="#" class="btn btn-primary btn-lg btn-block size-15"><i class="fa fa-mail-forward"></i> Checkout</a>
+            </div>
+        </div>
+    </div>
+
+</div>
