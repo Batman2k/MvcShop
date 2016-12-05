@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using RapidMountain.Core.Dtos;
 using RapidMountain.Core.Models;
 using RapidMountain.Core.Repositories;
 
@@ -14,11 +15,18 @@ namespace RapidMountain.Persistence.Repositories
             _context = context;
         }
 
-        public List<CartView> GetCartByUserId(string userId)
+        public List<Cart> GetCartByUserId(string userId)
         {
             return _context.Carts
                 .Where(c => c.UserId == userId)
-                .Select(c => new CartView
+                .ToList();
+        }
+
+        public List<CartDto> GetCartDtosByUserId(string userId)
+        {
+            return _context.Carts
+                .Where(c => c.UserId == userId)
+                .Select(c => new CartDto
                 {
                     Amount = c.Amount,
                     ProductId = c.ProductId,
@@ -29,10 +37,10 @@ namespace RapidMountain.Persistence.Repositories
                 .ToList();
         }
 
+
         public Cart GetCartByUserIdAndProductId(string userId, int productId)
         {
-            return _context.Carts.FirstOrDefault(c => c.UserId == userId && c.ProductId == productId);
-
+            return _context.Carts.FirstOrDefault(c => (c.UserId == userId) && (c.ProductId == productId));
         }
 
         public void RemoveCart(Cart cartProduct)

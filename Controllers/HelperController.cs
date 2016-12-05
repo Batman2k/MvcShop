@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using RapidMountain.Core;
+using RapidMountain.Core.Dtos;
 using RapidMountain.Core.Models;
 using RapidMountain.Persistence;
 
@@ -58,10 +59,10 @@ namespace RapidMountain.Controllers
         public ActionResult RenderCart()
         {
             var userId = User.Identity.GetUserId();
-            var viewModel = new List<CartView>();
+            var viewModel = new List<CartDto>();
 
             if (userId != null)
-            viewModel = _unitOfWork.Carts.GetCartByUserId(userId);
+            viewModel = _unitOfWork.Carts.GetCartDtosByUserId(userId);
             
             
             

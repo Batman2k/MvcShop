@@ -74,11 +74,10 @@
 
             @using (Html.BeginForm("UpdateCartAmount", "Cart"))
             {
-
                 <div class="btn-group pull-left product-opt-qty noradius">
-                    <input type="number" value="1" name="amount" maxlength="3" max="999" min="0" />
+                    <input type="number" value="1" name="amount" maxlength="3" max="999" min="0"/>
                 </div>
-                
+
                 @Html.Hidden("productId", Model.Id)
                 <button class="btn btn-primary pull-left product-add-cart noradius">ADD TO CART</button>
             }

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<RapidMountain.Core.Dtos.OrderDto>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date Placed</th>
+                <th>Sum</th>
+                <th>Tracking number</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var orderDto in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(orderDto.OrderId.ToString(),"Details",new {id = orderDto.OrderId},new { style = "color: blue" })</td>
+                <td>@orderDto.DatePlaced</td>
+                <td>@orderDto.TotalSum</td>
+                <td>@orderDto.TrackingNumber</td>
+                <td>@orderDto.OrderStatus</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

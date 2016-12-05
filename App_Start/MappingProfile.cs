@@ -12,6 +12,12 @@ namespace RapidMountain
             CreateMap<Product, ProductViewModel>();
 
 
+            
+            CreateMap<CheckoutViewModel, CustomerInfo>();
+            CreateMap<CustomerInfo, CheckoutViewModel>();
+
+            CreateMap<CheckoutViewModel, OrderAddress>();
+
             //TODO needed?
             CreateMap<ProductViewModel, Product>();
         }

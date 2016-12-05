@@ -1,0 +1,136 @@
+﻿@model RapidMountain.Core.Models.Order
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-10 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Orderinformation</div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-xs-4">Ordernumber</div>
+                    <div class="col-xs-8 text-right">@Model.Id</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">Date placed</div>
+                    <div class="col-xs-8 text-right">@Model.DatePlaced</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-4">Orderstatus</div>
+                    <div class="col-xs-8 text-right">@Model.OrderStatus</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-4">Paymentmethod</div>
+                    <div class="col-xs-8 text-right">@Model.PaymentMethod</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-4">Paid</div>
+                    <div class="col-xs-8 text-right">@(Model.IsPaid ? "Yes" : "no") </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-4">Trackingnumber</div>
+                    <div class="col-xs-8 text-right">@Model.TrackingNumber</div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-xs-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Shippingaddress</div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-xs-12">@Model.OrderAddresses.First().FirstName @Model.OrderAddresses.First().LastName</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">@Model.OrderAddresses.First().AddressOne</div>
+                </div>
+
+                @if (Model.OrderAddresses.FirstOrDefault()?.AddressTwo != null)
+                {
+                    <div class="row">
+                        <div class="col-xs-12">@Model.OrderAddresses.First().AddressTwo</div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-xs-12">@Model.OrderAddresses.First().Province</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">@Model.OrderAddresses.First().City @Model.OrderAddresses.First().ZipCode</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">@Model.OrderAddresses.First().Country</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div style="padding-left: 15px; padding-right: 15px; padding-bottom: 5px;">
+        <div class="table-responsive table-bordered ">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ProductId</th>
+                        <th>Amount</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var orderProduct in Model.OrderProducts)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(orderProduct.ProductId.ToString(), "Details","Product", new { id = orderProduct.ProductId }, new { style = "color: blue" })</td>
+                            <td>@orderProduct.Amount</td>
+                            <td>@orderProduct.Price</td>
+                            <td>@(orderProduct.Price * orderProduct.Amount)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xs-12 col-md-6 pull-right">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                
+                <div class="row">
+                    <div class="col-xs-4">Shipping</div>
+                    <div class="col-xs-8 text-right">@Model.ShippingCost</div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-4">Taxes</div>
+                    <div class="col-xs-8 text-right">@(Model.OrderProducts.Select(op => op.Amount * op.Price).Sum()*(decimal)0.2)</div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-4">Total</div>
+                    <div class="col-xs-8 text-right">@(Model.OrderProducts.Select(op => op.Amount * op.Price).Sum())</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

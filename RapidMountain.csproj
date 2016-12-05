@@ -214,11 +214,16 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Core\Extensions\ImageExtensions.cs" />
-    <Compile Include="Core\Models\CartView.cs" />
+    <Compile Include="Core\Dtos\CartDto.cs" />
     <Compile Include="Core\Models\Cart.cs" />
+    <Compile Include="Core\Models\CustomerInfo.cs" />
+    <Compile Include="Core\Models\OrderAddress.cs" />
     <Compile Include="Core\Repositories\ICategoryRepository.cs" />
+    <Compile Include="Core\Repositories\ICustomerInfoRepository.cs" />
+    <Compile Include="Core\Repositories\IOrderRepository.cs" />
     <Compile Include="Core\Repositories\IProductRepository.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -240,8 +245,17 @@
     <Compile Include="Persistence\Migrations\201611160135005_CartSecondKey.Designer.cs">
       <DependentUpon>201611160135005_CartSecondKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\Migrations\201611221317386_AddedCustinfoAndOrder.cs" />
+    <Compile Include="Persistence\Migrations\201611221317386_AddedCustinfoAndOrder.Designer.cs">
+      <DependentUpon>201611221317386_AddedCustinfoAndOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Repositories\CartRepository.cs" />
     <Compile Include="Core\Repositories\ICartRepository.cs" />
+    <Compile Include="Persistence\Repositories\CustomerInfoRepository.cs" />
+    <Compile Include="Core\Models\Order.cs" />
+    <Compile Include="Core\Dtos\OrderDto.cs" />
+    <Compile Include="Core\Models\OrderProduct.cs" />
+    <Compile Include="Persistence\Repositories\OrderRepository.cs" />
     <Compile Include="Persistence\Repositories\ProductRepository.cs" />
     <Compile Include="Persistence\Migrations\201610311752440_AddedStringLengthToProduct.cs" />
     <Compile Include="Persistence\Migrations\201610311752440_AddedStringLengthToProduct.Designer.cs">
@@ -295,6 +309,8 @@
     <Content Include="Content\Images\flower-logo.jpg" />
     <Content Include="Content\green.css" />
     <Content Include="Content\header-1.css" />
+    <Content Include="Content\Images\home_slider_1.jpg" />
+    <Content Include="Content\Images\home_slider_2.jpg" />
     <Content Include="Content\Images\Maestro.png" />
     <Content Include="Content\Images\Mastercard.png" />
     <Content Include="Content\Images\PayPal.png" />
@@ -492,17 +508,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Helper\RenderProducts.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\Order\Orders.cshtml" />
     <None Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Product\ProductForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Api\" />
     <Folder Include="Scripts\Custom\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Persistence\Migrations\201610272046018_Init.resx">
@@ -531,6 +547,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Persistence\Migrations\201611160135005_CartSecondKey.resx">
       <DependentUpon>201611160135005_CartSecondKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201611221317386_AddedCustinfoAndOrder.resx">
+      <DependentUpon>201611221317386_AddedCustinfoAndOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

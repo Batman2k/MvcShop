@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using RapidMountain.Core.Dtos;
 using RapidMountain.Core.Models;
 
 namespace RapidMountain.Core.ViewModels
@@ -7,6 +8,6 @@ namespace RapidMountain.Core.ViewModels
     {
         public string Title { get; set; }
 
-        public IEnumerable<CartView> CartViews { get; set; }
+        public IEnumerable<CartDto> CartViews { get; set; }
     }
 }

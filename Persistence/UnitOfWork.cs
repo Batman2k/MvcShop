@@ -1,5 +1,4 @@
 ﻿using RapidMountain.Core;
-using RapidMountain.Core.Models;
 using RapidMountain.Core.Repositories;
 using RapidMountain.Persistence.Repositories;
 
@@ -17,13 +16,17 @@ namespace RapidMountain.Persistence
             Products = new ProductRepository(context);
             Reviews = new ReviewRepository(context);
             Carts = new CartRepository(context);
+            Orders = new OrderRepository(context);
+            CustomerInfos = new CustomerInfoRepository(context);
         }
 
+        public IOrderRepository Orders { get; set; }
+        public ICustomerInfoRepository CustomerInfos { get; set; }
         public IProductRepository Products { get; set; }
         public ICategoryRepository Categories { get; set; }
         public IReviewRepository Reviews { get; set; }
         public ICartRepository Carts { get; set; }
-        
+
         public void Finish()
         {
             _context.SaveChanges();

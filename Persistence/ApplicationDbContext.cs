@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using RapidMountain.Core.Models;
+using RapidMountain.Persistence.Repositories;
 
 namespace RapidMountain.Persistence
 {
@@ -15,6 +16,20 @@ namespace RapidMountain.Persistence
         public DbSet<Review> Reviews { get; set; }
 
         public DbSet<Cart> Carts { get; set; }
+
+
+
+
+        public DbSet<CustomerInfo> CustomerInfos { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderProduct> OrderProducts { get; set; }
+
+        public DbSet<OrderAddress> OrderAddress { get; set; }
+
+
+
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

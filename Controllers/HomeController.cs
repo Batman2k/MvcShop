@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using RapidMountain.Core;
+using RapidMountain.Core.Dtos;
 using RapidMountain.Core.Extensions;
 using RapidMountain.Core.Models;
 using RapidMountain.Core.ViewModels;
@@ -31,6 +33,9 @@ namespace RapidMountain.Controllers
 
         public ActionResult Index(string searchTerm = null)
         {
+
+
+            
             var viewModel = new HomeViewModel
             {
                 Title = "Main Page",

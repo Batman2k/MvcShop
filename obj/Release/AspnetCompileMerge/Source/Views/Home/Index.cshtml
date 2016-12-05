@@ -1,32 +1,52 @@
 ﻿@model RapidMountain.Core.ViewModels.HomeViewModel
 
 @{
-    ViewBag.Title = "Home Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Home Page";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @if (!string.IsNullOrWhiteSpace(Model.SearchTerm))
 {
-   
+	<ul class="shop-item-list row list-inline nomargin">
 
-        <ul class="shop-item-list row list-inline nomargin">
-
-            @{
-                Html.RenderAction("RenderProducts", "Helper", new {Model.Products});
-            }
-        </ul>
-   
-
-    }
+		@{
+			Html.RenderAction("RenderProducts", "Helper", new {Model.Products});
+		}
+	</ul>
+}
 else
 {
-    
-
-        <div class="row">
-
-            <div>Empty for now</div>
-        </div>
-        
+			@*<div>Empty for now</div>*@
 
 
+	<div class="owl-carousel buttons-autohide controlls-over nomargin" data-plugin-options='{"items": 1, "autoHeight": false, "navigation": true, "pagination": false, "transitionStyle":"fade", "progressBar":"true"}'>
+
+		<div>
+			<img class="img-responsive" src="~/Content/Images/home_slider_1.jpg" alt="">
+		</div>
+		<a href="#">
+			<img class="img-responsive" src="~/Content/Images/home_slider_2.jpg" alt="">
+		</a>
+	</div>
+
+	<div class="info-bar info-bar-clean info-bar-bordered nomargin-bottom">
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-sm-4">
+					<i class="glyphicon glyphicon-globe"></i>
+					<h3>FREE SHIPPING &amp; RETURN</h3>
+					<p>Lorem ipsum dolor sit amet</p>
+				</div>
+
+				<div class="col-sm-4">
+					<i class="glyphicon glyphicon-usd"></i>
+					<h3>MONEY BACK GUARANTEE</h3>
+					<p>Lorem ipsum dolor sit amet.</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
 }

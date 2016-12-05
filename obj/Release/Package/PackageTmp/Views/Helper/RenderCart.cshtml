@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<RapidMountain.Core.Models.CartView>
+﻿@model  IEnumerable<RapidMountain.Core.Dtos.CartDto>
 
 <li class="quick-cart">
     <a href="#">
@@ -32,7 +32,7 @@
 
     <div class="quick-cart-footer clearfix">
         <a href="@Url.Action("Cart","Cart")" class="btn btn-primary btn-xs pull-right">VIEW CART</a>
-        <span class="pull-left"><strong>TOTAL:</strong> $@Model.Select(m => m.Price * m.Amount).Sum()</span>
+        <span class="pull-left"><strong>TOTAL: </strong>@Model.Select(m => m.Price * m.Amount).Sum()</span>
     </div>
 </div>
 </li>

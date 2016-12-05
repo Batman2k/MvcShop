@@ -37,6 +37,7 @@ namespace RapidMountain.Persistence.Repositories
                 .Where(p => p.Id == id)
                 .Include(p => p.Reviews)
                 .Include(p => p.Specifications)
+                .Include(p => p.Pictures)
                 .FirstOrDefault();
 
             if (product != null)
@@ -68,8 +69,26 @@ namespace RapidMountain.Persistence.Repositories
                      p.SubCategory.Contains(searchTerm) ||
                      p.SerialNumber.Contains(searchTerm)))
                 .Include(p => p.Pictures)
+                //.Select(p => new
+                //{
+                //  AmountInStock = p.AmountInStock,
+                  
+                //  Category = p.Category,
+                //  Description = p.Description,
+                //  Discount = p.Discount,
+                //  Id = p.Id,
+                //  IsVisible = p.IsVisible,
+                //  LimitedOffer = p.LimitedOffer,
+                //  Name = p.Name,
+                //  Pictures = new List<Picture>
+                //  {
+                //      p.Pictures.FirstOrDefault() 
+                      
+                //  }
+                // })
                 //TODO include only first picture // add mainpicture in productmodel....
                 .ToList();
+
         }
 
         public List<Product> GetAllVisibleProductBySubCategory(string category, string subCategory)
